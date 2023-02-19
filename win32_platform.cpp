@@ -14,6 +14,8 @@ struct Render_State {
 
 Render_State render_state;
 
+#include "renderer.cpp"
+
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     LRESULT result = 0;
@@ -48,18 +50,6 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         }
     }
 	return result;
-}
-
-int rectangle(unsigned int* memory, int left_bottom[2], int right_top[2], Render_State render) {
-    for (int y = 0; y < render.height; y++) {
-        for (int x = 0; x < render.width; x++) {
-            if (left_bottom[0] <= x && x <= right_top[0] && left_bottom[1] <= y && y <= right_top[1]) {
-                *memory = x * y;
-            }
-            memory++;
-        }
-    }
-    return 0;
 }
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
@@ -108,16 +98,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
             DispatchMessage(&message);
         }
 
-        //simulate
-        unsigned int* pixel = (unsigned int*)render_state.memory;
-        int left[2] = { 10, 20 };
-        int right[2] = { 70,80 };
-        rectangle(pixel, left, right, render_state);
-        /*for (int y = 0; y < render_state.height; y++) {
-            for (int x = 0; x < render_state.width; x++) {
-                *pixel++ = 0xff5500;
-            }
-        }*/
+        clear_screen(0xff5500);
+        draw_rectangle(50, 50, 200, 200, 0xff0000);
+
         //render
         StretchDIBits(hdc, 0, 0, render_state.width, render_state.height, 0, 0, render_state.width, render_state.height, render_state.memory, &render_state.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
     }
