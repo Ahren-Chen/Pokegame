@@ -1,9 +1,10 @@
 #include <iostream>
 #include <windows.h>
+#include "utility.cpp"
 
 using namespace std;
 
-bool running = true;
+global_variable bool running = true;
 
 struct Render_State {
     int height, width;
@@ -12,7 +13,7 @@ struct Render_State {
     BITMAPINFO bitmap_info;
 };
 
-Render_State render_state;
+global_variable Render_State render_state;
 
 #include "renderer.cpp"
 
@@ -32,7 +33,7 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
             render_state.width = rect.right - rect.left;
             render_state.height = rect.bottom - rect.top;
 
-            int size = render_state.width * render_state.height * sizeof(unsigned int);
+            int size = render_state.width * render_state.height * sizeof(u32);
 
             if (render_state.memory) VirtualFree(render_state.memory, 0, MEM_RELEASE);
             render_state.memory = VirtualAlloc(0, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
@@ -99,7 +100,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
         }
 
         clear_screen(0xff5500);
-        draw_rectangle(50, 50, 200, 200, 0xff0000);
+        draw_rectangle(0, 0, 4, 2, 0xff0000);
 
         //render
         StretchDIBits(hdc, 0, 0, render_state.width, render_state.height, 0, 0, render_state.width, render_state.height, render_state.memory, &render_state.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
