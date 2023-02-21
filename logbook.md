@@ -7,3 +7,9 @@ Feb 19 2023:
 * Refactored the code to give responsibility to different files and organize
 * The renderer file has classes that can render the background, draw a rectangle based on coordinates and color, and a clear screen method.
 * Built a utility file to ensure that when resizing, there is no program crash due to trying to draw the rectangle outside the limits of the screen.
+
+Feb 20 2023:
+* Moved to VsCode and had to clarify some code so the compiler would understand
+
+Feb 21 2023:
+* Going to start on allowing inputs from the user through keyboard and objects on the screen interacting with each other
