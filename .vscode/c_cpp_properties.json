@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../include/c++/12.2.0",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../include/c++/12.2.0/x86_64-w64-mingw32",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../include/c++/12.2.0/backward",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/include",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/../../../../include",
+                "C:/Ahren/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/12.2.0/include-fixed"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

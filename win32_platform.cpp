@@ -57,16 +57,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// Register the window class.
 	const wchar_t CLASS_NAME[] = L"Window";
 
-	WNDCLASS wc = { };
+	WNDCLASSW wc = { };
 
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = window_callback;
 	wc.hInstance = hInstance;
 	wc.lpszClassName = CLASS_NAME;
-	RegisterClass(&wc);
+	RegisterClassW(&wc);
 
 	//Create window
-    HWND window = CreateWindowEx(
+    HWND window = CreateWindowExW(
         0,                              // Optional window styles.
         CLASS_NAME,                     // Window class
         L"Pokemon",    // Window text
