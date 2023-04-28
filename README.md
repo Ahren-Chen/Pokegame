@@ -4,10 +4,11 @@
 
 ## How to run the product
 
-Open the solution file in any IDE that supposrts C++ and run the program.
+Open the solution file in any IDE that supposrts C++ and run the program. This specific project was built in VSCode with the specific properties in the .vscode directory.
 
 ## Backlog
-see logbook.md for information on what work is being done and timestamps
+See logbook.md for information on what work is being done and timestamps
+
 ### Definition of Done
 
 -- Successfully completes the feature goal with no bugs. It is also covered with tests. --
@@ -20,5 +21,6 @@ see logbook.md for information on what work is being done and timestamps
 |:--:|---------------|------|-------|-----|--------|
 | F1 | Create a resizeable window screen | Ahren | 12/30/22 | 12/30/22 | D |
 | F2 | Add a background color | Ahren | 12/30/22 | 12/30/22 | D |
-| F3 | Create a way to clear the screen and draw rectangles based on current size of the screen | Ahren | 02/19/23 | 02/19/23 | D |
+| F3 | Create a way to clear the screen and draw rectangles based on current size of the screen | Ahren | 02/19/23 | 02/19/23 | T |
 | F4 | Allow objects to move based on keyboard input | Ahren | 02/21/23 | 02/--/23 | S |
+| F5 | Allow interactions between objects on the screen | Ahren | 02/21/23 | 02/--/23 | B(F4) |
