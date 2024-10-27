@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Header_Files">
+      <UniqueIdentifier>{b8e932bd-65fd-4d68-a4a0-b0c35bcbec90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32_platform.cpp">
@@ -21,8 +24,11 @@
     <ClCompile Include="renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utility.cpp">
+    <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.h">
+      <Filter>Source Files\Header_Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,5 +38,16 @@
     <None Include="logbook.md">
       <Filter>Source Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="renderer.h">
+      <Filter>Source Files\Header_Files</Filter>
+    </ClInclude>
+    <ClInclude Include="platform_common.h">
+      <Filter>Source Files\Header_Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source Files\Header_Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

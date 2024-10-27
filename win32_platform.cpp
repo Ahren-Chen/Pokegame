@@ -1,27 +1,17 @@
 #include <iostream>
-#include <windows.h>
-#include "utility.cpp"
+#include "utility.h"
 
 using namespace std;
 
 global_variable bool running = true;
 
-struct Render_State {
-    int height, width;
-    void* memory;
-
-    BITMAPINFO bitmap_info;
-};
-
-global_variable Render_State render_state;
-
-#include "platform_common.cpp"
-#include "renderer.cpp"
-#include "game.cpp"
+#include "platform_common.h"
+#include "renderer.h"
+#include "game.h"
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     LRESULT result = 0;
-
+    
     switch (uMsg) {
         case WM_CLOSE:
         case WM_DESTROY: {
@@ -38,7 +28,6 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
             if (render_state.memory) VirtualFree(render_state.memory, 0, MEM_RELEASE);
             render_state.memory = VirtualAlloc(0, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            
 
             render_state.bitmap_info.bmiHeader.biSize = sizeof(render_state.bitmap_info.bmiHeader);
             render_state.bitmap_info.bmiHeader.biWidth = render_state.width;
@@ -56,7 +45,7 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd) {
 	// Register the window class.
-	const wchar_t CLASS_NAME[] = L"Window";
+	const wchar_t CLASS_NAME[] = L"Game Window";
 
 	WNDCLASSW wc = { };
 
