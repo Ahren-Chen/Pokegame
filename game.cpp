@@ -20,7 +20,9 @@ void Simulate(Input* input) {
         player_pos_y -= 1.f;
     }
 
+    Renderer& renderer = Renderer::get_instance();
+
     // Render updates
-    clear_screen(0xff5500);
-    draw_rectangle(player_pos_x, player_pos_y, 4, 2, 0xff0000);
+    renderer.clear_screen(0xff5500);
+    renderer.draw_rectangle(player_pos_x, player_pos_y, 4, 2, 0xff0000);
 }

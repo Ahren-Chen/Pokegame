@@ -10,6 +10,8 @@ global_variable bool running = true;
 #include "game.h"
 
 LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+
+    Renderer& renderer = Renderer::get_instance();
     LRESULT result = 0;
     
     switch (uMsg) {
@@ -21,20 +23,10 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         case WM_SIZE: {
             RECT rect;
             GetClientRect(hwnd, &rect);
-            render_state.width = rect.right - rect.left;
-            render_state.height = rect.bottom - rect.top;
 
-            int size = render_state.width * render_state.height * sizeof(u32);
-
-            if (render_state.memory) VirtualFree(render_state.memory, 0, MEM_RELEASE);
-            render_state.memory = VirtualAlloc(0, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-
-            render_state.bitmap_info.bmiHeader.biSize = sizeof(render_state.bitmap_info.bmiHeader);
-            render_state.bitmap_info.bmiHeader.biWidth = render_state.width;
-            render_state.bitmap_info.bmiHeader.biHeight = render_state.height;
-            render_state.bitmap_info.bmiHeader.biPlanes = 1;
-            render_state.bitmap_info.bmiHeader.biBitCount = 32;
-            render_state.bitmap_info.bmiHeader.biCompression = BI_RGB;
+            int width = rect.right - rect.left;
+            int height = rect.bottom - rect.top;
+            renderer.initialize(width, height);
         }
         default: {
             result = DefWindowProc(hwnd, uMsg, wParam, lParam);
@@ -82,6 +74,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
     Input input = {};
 
+    Renderer& renderer = Renderer::get_instance();
+
     //Game loop
     while (running) {
         //input
@@ -124,10 +118,10 @@ case vk: {\
         Simulate(&input);
         //clear_screen(0xff5500);
 
-        //draw_rectangle(0, 0, 4, 2, 0xff0000);
+        renderer.draw_rectangle(0, 0, 4, 2, 0xff0000);
 
         //render
-        StretchDIBits(hdc, 0, 0, render_state.width, render_state.height, 0, 0, render_state.width, render_state.height, render_state.memory, &render_state.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+        StretchDIBits(hdc, 0, 0, renderer.get_width(), renderer.get_height(), 0, 0, renderer.get_width(), renderer.get_height(), renderer.get_memory(), renderer.get_bitmap_info(), DIB_RGB_COLORS, SRCCOPY);
     }
     return 0;
 }
