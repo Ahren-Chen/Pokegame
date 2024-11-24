@@ -75,6 +75,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     Input input = {};
 
     Renderer& renderer = Renderer::get_instance();
+    Game game;
+    game.initialize();
 
     //Game loop
     while (running) {
@@ -115,7 +117,7 @@ case vk: {\
         }
 
         //simulate
-        Simulate(&input);
+        game.simulate(&input);
         //clear_screen(0xff5500);
 
         renderer.draw_rectangle(0, 0, 4, 2, 0xff0000);
