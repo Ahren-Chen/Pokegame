@@ -76,7 +76,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
     Renderer& renderer = Renderer::get_instance();
     Game game;
-    game.initialize();
 
     //Game loop
     while (running) {
@@ -97,8 +96,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 #define process_button(b, vk)\
 case vk: {\
+    input.buttons[b].changed = (is_down != input.buttons[b].is_down);\
     input.buttons[b].is_down = is_down;\
-    input.buttons[b].changed = true;\
 } break;
 
                     switch(vk_code) {
@@ -118,8 +117,6 @@ case vk: {\
 
         //simulate
         game.simulate(&input);
-
-        renderer.draw_rectangle(0, 0, 4, 2, 0xff0000);
 
         //render
         StretchDIBits(hdc, 0, 0, renderer.get_width(), renderer.get_height(), 0, 0, renderer.get_width(), renderer.get_height(), renderer.get_memory(), renderer.get_bitmap_info(), DIB_RGB_COLORS, SRCCOPY);

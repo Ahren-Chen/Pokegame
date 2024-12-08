@@ -15,9 +15,6 @@ public:
     Game();
     ~Game();
 
-    // Initialize the game
-    void initialize();
-
     // Run the game simulation
     void simulate(Input* input);
 
@@ -28,6 +25,15 @@ private:
     // Player position
     float player_pos_x;
     float player_pos_y;
+    float arena_half_size_x;
+    float arena_half_size_y;
+    float player_half_size_x;
+    float player_half_size_y;
+    float ball_x;
+    float ball_y;
+    float ball_dp_x;
+    float ball_dp_y;
+    float ball_half_size;
     float delta_time;
     float performance_frequency;
     LARGE_INTEGER frame_time;
@@ -35,6 +41,7 @@ private:
     // Helper methods
     void process_input(Input* input);
     void update_renderer();
+    void process_ball();
 };
 
 #endif // GAME_H
