@@ -21,10 +21,16 @@ public:
     // Run the game simulation
     void simulate(Input* input);
 
+    // Record the latest time and calculate the seconds/frame
+    void update_time();
+
 private:
     // Player position
     float player_pos_x;
     float player_pos_y;
+    float delta_time;
+    float performance_frequency;
+    LARGE_INTEGER frame_time;
 
     // Helper methods
     void process_input(Input* input);

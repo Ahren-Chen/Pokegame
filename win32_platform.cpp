@@ -118,12 +118,13 @@ case vk: {\
 
         //simulate
         game.simulate(&input);
-        //clear_screen(0xff5500);
 
         renderer.draw_rectangle(0, 0, 4, 2, 0xff0000);
 
         //render
         StretchDIBits(hdc, 0, 0, renderer.get_width(), renderer.get_height(), 0, 0, renderer.get_width(), renderer.get_height(), renderer.get_memory(), renderer.get_bitmap_info(), DIB_RGB_COLORS, SRCCOPY);
+
+        game.update_time();
     }
     return 0;
 }
