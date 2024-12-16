@@ -47,6 +47,7 @@ public:
     int get_height() const;
     void* get_memory() const;
     const BITMAPINFO* get_bitmap_info() const;
+    void draw_image(const char* file_path, int x, int y, int width, int height);
 
 private:
     // Private constructor/destructor for singleton

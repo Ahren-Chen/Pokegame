@@ -79,6 +79,10 @@ void Game::update_renderer() {
 
     // Player
     renderer.draw_rectangle(player_pos_x, player_pos_y, 2.5, 12, 0xff0000);
+
+    // Image test
+    const char* image_path = "test.png";
+    renderer.draw_image(image_path, 0, 0, 50, 50);
 }
 
 // Run the game simulation

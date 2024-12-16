@@ -1,5 +1,10 @@
 // renderer.cpp
 #include "renderer.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+#define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include "stb_image_resize2.h"
 
 // Singleton instance
 Renderer& Renderer::get_instance() {
@@ -121,4 +126,44 @@ void* Renderer::get_memory() const {
 
 const BITMAPINFO* Renderer::get_bitmap_info() const {
     return &render_state.bitmap_info;
+}
+
+void Renderer::draw_image(const char* file_path, int x, int y, int width, int height) {
+    int img_width, img_height, channels;
+    // Load the image
+    unsigned char* image_data = stbi_load(file_path, &img_width, &img_height, &channels, 4); // Force 4 channels (RGBA)
+
+    if (!image_data) {
+        //std::cerr << "Failed to load image: " << file_path << endl;
+        return;
+    }
+
+    unsigned char* resized_image_data = new unsigned char[width * height * 4];  // RGBA
+    stbir_resize_uint8_srgb(image_data, img_width, img_height, img_width * 4,  // Input image data and its original dimensions
+        resized_image_data, width, height, // Output image data and new dimensions
+        width * 4, stbir_pixel_layout::STBIR_RGBA);
+
+    // Draw the image pixel by pixel
+    if (resized_image_data) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                unsigned char* pixel = resized_image_data + (row * width + col) * 4;
+                u32 color = (pixel[3] << 24) | (pixel[2] << 16) | (pixel[1] << 8) | pixel[0];
+
+                // Calculate the target position in the renderer memory
+                int draw_x = x + col;
+                int draw_y = y + row;
+
+                if (draw_x < render_state.width && draw_y < render_state.height) {
+                    u32* target_pixel = (u32*)render_state.memory + draw_x + draw_y * render_state.width;
+                    *target_pixel = color;
+                }
+            }
+        }
+    }
+
+    delete[] resized_image_data;
+
+    // Free the image data
+    stbi_image_free(image_data);
 }

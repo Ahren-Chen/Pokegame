@@ -49,5 +49,16 @@
     <ClInclude Include="game.h">
       <Filter>Source Files\Header_Files</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Source Files\Header_Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image_resize2.h">
+      <Filter>Source Files\Header_Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
