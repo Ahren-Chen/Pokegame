@@ -143,16 +143,20 @@ void Renderer::draw_image(const char* file_path, int x, int y, int width, int he
         resized_image_data, width, height, // Output image data and new dimensions
         width * 4, stbir_pixel_layout::STBIR_RGBA);
 
+    // Centering the image
+    x += (render_state.width - img_width) / 2.f;
+    y += (render_state.height - img_height) / 2.f;
+
     // Draw the image pixel by pixel
     if (resized_image_data) {
-        for (int row = 0; row < height; row++) {
+        for (int row = height - 1; row >= 0; row--) {
             for (int col = 0; col < width; col++) {
                 unsigned char* pixel = resized_image_data + (row * width + col) * 4;
-                u32 color = (pixel[3] << 24) | (pixel[2] << 16) | (pixel[1] << 8) | pixel[0];
+                u32 color = (pixel[3] << 24) | (pixel[0] << 16) | (pixel[1] << 8) | pixel[2]; // RGBA
 
                 // Calculate the target position in the renderer memory
                 int draw_x = x + col;
-                int draw_y = y + row;
+                int draw_y = y + (height - 1 - row);
 
                 if (draw_x < render_state.width && draw_y < render_state.height) {
                     u32* target_pixel = (u32*)render_state.memory + draw_x + draw_y * render_state.width;
