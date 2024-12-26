@@ -82,7 +82,7 @@ void Game::update_renderer() {
 
     // Image test
     const char* image_path = "test.png";
-    renderer.draw_image(image_path, 0, 0, 32, 32);
+    renderer.draw_image(image_path, 0, 0, 8, 8);
 }
 
 // Run the game simulation

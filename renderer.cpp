@@ -137,6 +137,9 @@ void Renderer::draw_image(const char* file_path, int x, int y, int width, int he
         //std::cerr << "Failed to load image: " << file_path << endl;
         return;
     }
+    // Scale as a percentage of window height
+    width *= render_state.height * render_scale;
+    height *= render_state.height * render_scale;
 
     unsigned char* resized_image_data = new unsigned char[width * height * 4];  // RGBA
     stbir_resize_uint8_srgb(image_data, img_width, img_height, img_width * 4,  // Input image data and its original dimensions
@@ -144,8 +147,8 @@ void Renderer::draw_image(const char* file_path, int x, int y, int width, int he
         width * 4, stbir_pixel_layout::STBIR_RGBA);
 
     // Centering the image
-    x += (render_state.width - img_width) / 2.f;
-    y += (render_state.height - img_height) / 2.f;
+    x += (render_state.width - width) / 2.f;
+    y += (render_state.height - height) / 2.f;
 
     // Draw the image pixel by pixel
     if (resized_image_data) {
@@ -153,6 +156,11 @@ void Renderer::draw_image(const char* file_path, int x, int y, int width, int he
             for (int col = 0; col < width; col++) {
                 unsigned char* pixel = resized_image_data + (row * width + col) * 4;
                 u32 color = (pixel[3] << 24) | (pixel[0] << 16) | (pixel[1] << 8) | pixel[2]; // RGBA
+
+                // If blank/transparent, keep background color
+                if (color == 0) {
+                    continue;
+                }
 
                 // Calculate the target position in the renderer memory
                 int draw_x = x + col;
